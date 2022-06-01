@@ -18,14 +18,14 @@ public class MovieTeamMember {
 
     @ManyToOne
     @JoinColumn(name = "movie_id")
-    Movie movie;
+    private Movie movie;
 
     @ManyToOne
     @JoinColumn(name = "person_id")
-    Person person;
+    private Person person;
 
     @ManyToOne
     @JoinColumn(name = "cast_role_id")
-    CastRole castRole;
+    private CastRole castRole;
 
 }
