@@ -5,6 +5,7 @@ import com.example.my_movies_db.model.entities.Person;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Data Transfer Object, чтобы собрать более красивый JSON на выходе из контроллера
@@ -12,7 +13,5 @@ import java.util.List;
 @Data
 public class MovieDTO {
     private Movie movie;
-    private List<Person> actors;
-    private List<Person> directors;
-
+    private Map<String, List<Person>> movieTeam;
 }

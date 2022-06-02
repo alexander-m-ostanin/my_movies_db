@@ -3,8 +3,7 @@ package com.example.my_movies_db.model.dto;
 import com.example.my_movies_db.model.entities.MovieTeamMember;
 import com.example.my_movies_db.model.entities.Person;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Класс со статичными методами, которые собирают DTO. Пока DTO в проекте один.
@@ -15,18 +14,26 @@ public class DTOBuilder {
     public static MovieDTO buildMoveDTO(List<MovieTeamMember> movieTeamMembers){
         MovieDTO movieDTO = new MovieDTO();
         movieDTO.setMovie(movieTeamMembers.get(0).getMovie());
-        List<Person> actors = new ArrayList<>();
-        List<Person> directors = new ArrayList<>();
-        for (MovieTeamMember movieTeamMember : movieTeamMembers){
-            if (movieTeamMember.getCastRole().getName().equals("Actor")){
-                actors.add(movieTeamMember.getPerson());
+        Map<String, List<Person>> movieTeam = new HashMap<>();
+        Set<String> castRoles = getCastRoles(movieTeamMembers);
+        for (String castRole : castRoles){
+            List<Person> roleTeam = new ArrayList<>();
+            for (MovieTeamMember movieTeamMember : movieTeamMembers) {
+                if (movieTeamMember.getCastRole().getName().equals(castRole)) {
+                    roleTeam.add(movieTeamMember.getPerson());
+                }
             }
-            if (movieTeamMember.getCastRole().getName().equals("Director")){
-                directors.add(movieTeamMember.getPerson());
-            }
-            movieDTO.setActors(actors);
-            movieDTO.setDirectors(directors);
+            movieTeam.put(castRole, roleTeam);
         }
+        movieDTO.setMovieTeam(movieTeam);
         return movieDTO;
+    }
+
+    private static Set<String> getCastRoles (List<MovieTeamMember> movieTeamMembers){
+        Set<String> castRoles = new HashSet<>();
+        for (MovieTeamMember movieTeamMember : movieTeamMembers){
+            castRoles.add(movieTeamMember.getCastRole().getName());
+        }
+        return castRoles;
     }
 }
