@@ -4,7 +4,7 @@ import org.aspectj.lang.annotation.Pointcut;
 
 public class Pointcuts {
 
-    @Pointcut("execution(* com.example.my_movies_db.controller.MovieRestController.get*(..))")
+    @Pointcut("execution(* com.example.my_movies_db.controller.MovieRestController.getMovieInfo(..))")
     public void pointcutMovieRestControllerGetMovieMethod(){}
 
 }
