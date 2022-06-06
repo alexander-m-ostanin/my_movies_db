@@ -19,10 +19,13 @@ public class MovieRestController {
     @Autowired
     private MovieTeamService movieTeamService;
 
+    @Autowired
+    private DTOBuilder dtoBuilder;
+
     @GetMapping("/{movie_id}")
     public MovieDTO getMovieInfo(@PathVariable int movie_id) {
         List<MovieTeamMember> movieTeamMembers = movieTeamService.getMovieTeamMembersByMovieId(movie_id);
-        return new DTOBuilder().buildMoveDTO(movieTeamMembers);
+        return dtoBuilder.buildMoveDTO(movieTeamMembers);
     }
 
 }

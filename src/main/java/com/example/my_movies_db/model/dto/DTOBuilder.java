@@ -3,6 +3,7 @@ package com.example.my_movies_db.model.dto;
 import com.example.my_movies_db.model.entities.MovieTeamMember;
 import com.example.my_movies_db.model.entities.Person;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 
@@ -10,6 +11,7 @@ import java.util.*;
  * Класс со статичными методами, которые собирают DTO. Пока DTO в проекте один.
  * Когда (если) появятся другие DTO надо будет решить что с ним дальше делать и как его развивать.
  */
+@Component
 public class DTOBuilder {
 
     public MovieDTO buildMoveDTO(List<MovieTeamMember> movieTeamMembers){
