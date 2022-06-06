@@ -2,6 +2,7 @@ package com.example.my_movies_db.model.dto;
 
 import com.example.my_movies_db.model.entities.MovieTeamMember;
 import com.example.my_movies_db.model.entities.Person;
+import org.aspectj.lang.annotation.Pointcut;
 
 import java.util.*;
 
@@ -11,7 +12,7 @@ import java.util.*;
  */
 public class DTOBuilder {
 
-    public static MovieDTO buildMoveDTO(List<MovieTeamMember> movieTeamMembers){
+    public MovieDTO buildMoveDTO(List<MovieTeamMember> movieTeamMembers){
         MovieDTO movieDTO = new MovieDTO();
         movieDTO.setMovie(movieTeamMembers.get(0).getMovie());
         Map<String, List<Person>> movieTeam = new HashMap<>();
@@ -29,7 +30,7 @@ public class DTOBuilder {
         return movieDTO;
     }
 
-    private static Set<String> getCastRoles (List<MovieTeamMember> movieTeamMembers){
+    private Set<String> getCastRoles (List<MovieTeamMember> movieTeamMembers){
         Set<String> castRoles = new HashSet<>();
         for (MovieTeamMember movieTeamMember : movieTeamMembers){
             castRoles.add(movieTeamMember.getCastRole().getName());

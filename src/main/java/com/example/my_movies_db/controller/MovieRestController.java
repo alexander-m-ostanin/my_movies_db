@@ -1,4 +1,4 @@
-package com.example.my_movies_db.controllers;
+package com.example.my_movies_db.controller;
 
 import com.example.my_movies_db.model.dto.DTOBuilder;
 import com.example.my_movies_db.model.dto.MovieDTO;
@@ -22,7 +22,7 @@ public class MovieRestController {
     @GetMapping("/{movie_id}")
     public MovieDTO getMovieInfo(@PathVariable int movie_id) {
         List<MovieTeamMember> movieTeamMembers = movieTeamService.getMovieTeamMembersByMovieId(movie_id);
-        return DTOBuilder.buildMoveDTO(movieTeamMembers);
+        return new DTOBuilder().buildMoveDTO(movieTeamMembers);
     }
 
 }
