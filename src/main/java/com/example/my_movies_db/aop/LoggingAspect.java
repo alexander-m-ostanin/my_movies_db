@@ -1,13 +1,14 @@
 package com.example.my_movies_db.aop;
 
-import com.example.my_movies_db.model.dto.MovieDTO;
+import com.example.my_movies_db.model.dto.PosterDTO;
 import lombok.extern.slf4j.Slf4j;
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 @Aspect
@@ -20,23 +21,23 @@ public class LoggingAspect {
      * @param joinPoint нужен для доступа к информации о сигнатуре метода и параметрах его работы
      * @return возвращает результат работы target метода getMovieInfo(@PathVariable int movie_id) класса MovieRestController
      */
-    @Around("Pointcuts.pointcutMovieRestControllerGetMovieMethod()")
-    public Object aroundGetMovieAdvice(ProceedingJoinPoint joinPoint) {
+    @Around("Pointcuts.pointcutMovieRestControllerGetMovieInfoMethod()")
+    public Object aroundGetMovieInfoAdvice(ProceedingJoinPoint joinPoint) {
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
         Object[] args = joinPoint.getArgs();
         int movie_id = (int) args[0];
         log.info(methodSignature.getDeclaringTypeName() +
                 ": Попытка метода " + methodSignature.getName() +
-                " вернуть MovieDTO для movie_id = " + movie_id);
+                " вернуть PosterDTO для movie_id = " + movie_id);
 
         Object targetMethodResult;
         try {
             targetMethodResult = joinPoint.proceed();
-            MovieDTO movieDTO = (MovieDTO) targetMethodResult;
+            PosterDTO posterDTO = (PosterDTO) targetMethodResult;
             log.info(methodSignature.getDeclaringTypeName() +
                     ": Метод " + methodSignature.getName() +
                     " для movie_id = " + movie_id +
-                    " успешно вернул " + movieDTO);
+                    " успешно вернул " + posterDTO);
         } catch (Throwable e) {
             log.error(methodSignature.getDeclaringTypeName() +
                     ": При выполнении метода " + methodSignature.getName() +
@@ -47,8 +48,38 @@ public class LoggingAspect {
         return targetMethodResult;
     }
 
+    /**
+     * Метод оборавичвается вокуг метода getAllMoviesInfo(@PathVariable int movie_id) класса MovieRestController
+     * и логирует результаты его работы
+     * @param joinPoint нужен для доступа к информации о сигнатуре метода и параметрах его работы
+     * @return возвращает результат работы target метода getAllMoviesInfo(@PathVariable int movie_id) класса MovieRestController
+     */
+    @Around("Pointcuts.pointcutMovieRestControllerGetAllMoviesInfoMethod()")
+    public Object aroundGetAllMoviesInfoAdvice(ProceedingJoinPoint joinPoint) {
+        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+        log.info(methodSignature.getDeclaringTypeName() +
+                ": Попытка метода " + methodSignature.getName() +
+                " вернуть " + methodSignature.getReturnType().getSimpleName());
 
-//    Ниже то же самое, но размазанное на 3 метода. Пока не решил как лучше
+        Object targetMethodResult;
+        try {
+            targetMethodResult = joinPoint.proceed();
+            List<PosterDTO> posterDTOList = (List<PosterDTO>) targetMethodResult;
+            log.info(methodSignature.getDeclaringTypeName() +
+                    ": Метод " + methodSignature.getName() +
+                    " успешно вернул " + posterDTOList);
+        } catch (Throwable e) {
+            log.error(methodSignature.getDeclaringTypeName() +
+                    ": При выполнении метода " + methodSignature.getName() +
+                    " произошла ошибка " + e);
+            throw new RuntimeException(e);
+        }
+        return targetMethodResult;
+    }
+
+
+
+//    Ниже то же самое лигирование getMovieInfo, но размазанное на 3 метода. Пока не решил как лучше
 
 //    @Before(value = "Pointcuts.pointcutMovieRestControllerGetMovieMethod()")
 //    public void beforeGetMovieAdvice(JoinPoint joinPoint){
@@ -56,7 +87,7 @@ public class LoggingAspect {
 //        Object[] args = joinPoint.getArgs();
 //        int movie_id = (int) args[0];
 //        log.info("MovieRestController: Попытка метода " + methodSignature.getName() +
-//                " вернуть MovieDTO для movie_id = " + movie_id);
+//                " вернуть PosterDTO для movie_id = " + movie_id);
 //    }
 //
 //    @AfterReturning(value = "Pointcuts.pointcutMovieRestControllerGetMovieMethod()")
@@ -65,7 +96,7 @@ public class LoggingAspect {
 //        Object[] args = joinPoint.getArgs();
 //        int movie_id = (int) args[0];
 //        log.info("MovieRestController: Метод " + methodSignature.getName() +
-//                " успешно вернул MovieDTO для movie_id = " + movie_id);
+//                " успешно вернул PosterDTO для movie_id = " + movie_id);
 //    }
 //
 //    @AfterThrowing(value = "Pointcuts.pointcutMovieRestControllerGetMovieMethod()", throwing = "exception")

@@ -11,7 +11,7 @@ import java.util.Map;
  * Data Transfer Object, чтобы собрать более красивый JSON на выходе из контроллера
  */
 @Data
-public class MovieDTO {
+public class PosterDTO {
     private Movie movie;
     private Map<String, List<Person>> movieTeam;
 }

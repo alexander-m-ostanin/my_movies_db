@@ -16,4 +16,9 @@ public class MovieTeamServiceImpl implements MovieTeamService{
     public List<MovieTeamMember> getMovieTeamMembersByMovieId(int movie_id) {
         return movieTeamRepository.findByMovieId(movie_id);
     }
+
+    @Override
+    public List<MovieTeamMember> getAllMovieTeamMembers() {
+        return movieTeamRepository.findAll();
+    }
 }

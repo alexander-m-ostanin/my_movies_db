@@ -1,7 +1,7 @@
 package com.example.my_movies_db.controller;
 
-import com.example.my_movies_db.model.dto.DTOBuilder;
-import com.example.my_movies_db.model.dto.MovieDTO;
+import com.example.my_movies_db.model.dto.PosterDTOBuilder;
+import com.example.my_movies_db.model.dto.PosterDTO;
 import com.example.my_movies_db.model.entities.MovieTeamMember;
 import com.example.my_movies_db.service.MovieTeamService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +20,18 @@ public class MovieRestController {
     private MovieTeamService movieTeamService;
 
     @Autowired
-    private DTOBuilder dtoBuilder;
+    private PosterDTOBuilder posterDtoBuilder;
 
     @GetMapping("/{movie_id}")
-    public MovieDTO getMovieInfo(@PathVariable int movie_id) {
+    public PosterDTO getMovieInfo(@PathVariable int movie_id) {
         List<MovieTeamMember> movieTeamMembers = movieTeamService.getMovieTeamMembersByMovieId(movie_id);
-        return dtoBuilder.buildMoveDTO(movieTeamMembers);
+        return posterDtoBuilder.buildPosterDTO(movieTeamMembers);
+    }
+
+    @GetMapping("/")
+    public List<PosterDTO> getAllMoviesInfo(){
+        List<MovieTeamMember> allMovieTeamMembers = movieTeamService.getAllMovieTeamMembers();
+        return posterDtoBuilder.buildPosterDTOList(allMovieTeamMembers);
     }
 
 }
