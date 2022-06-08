@@ -56,3 +56,15 @@ http://localhost:8080/api/movies/1
 ]
 }
 }
+
+Добавлена обработка ошибок. 
+
+Если в get запросе поступает id отсутствующий в БД - вместо Internal Server Error возвращается обработанный JSON.
+
+Пример возвращаемого JSON с кодом 404:
+
+{
+"info": "There is no movie with ID = 22 in Database",
+"code": "404 NOT_FOUND"
+}
+

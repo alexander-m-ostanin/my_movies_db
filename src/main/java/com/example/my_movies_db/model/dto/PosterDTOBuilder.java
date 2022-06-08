@@ -17,11 +17,10 @@ public class PosterDTOBuilder {
 
     /**
      * Метод из полученного на входе листа:
-     * @param allMovieTeamMembers
+     * @param allMovieTeamMembers - список всех movieTeamMembers находящихся в БД
      * получает сэт фильмов,
      * а потом для каждого фильма собирает постер
-     * @return
-     * возвращает лист постеров
+     * @return возвращает лист постеров
      */
     public List<PosterDTO> buildPosterDTOList(List<MovieTeamMember> allMovieTeamMembers){
         Set<Movie> movies = new HashSet<>();
@@ -42,10 +41,9 @@ public class PosterDTOBuilder {
 
     /**
      * Метод из полученного листа:
-     * @param movieTeamMembers
+     * @param movieTeamMembers - список movieTeamMembers конкретного фильма
      * собирает постер
-     * @return
-     * возврщает один постер
+     * @return возврщает один постер
      */
     public PosterDTO buildPosterDTO(List<MovieTeamMember> movieTeamMembers){
         PosterDTO posterDTO = new PosterDTO();
@@ -67,9 +65,8 @@ public class PosterDTOBuilder {
 
     /**
      * Метод из полученного листа
-     * @param movieTeamMembers
-     * @return
-     * возвращает сет уникальных ролей
+     * @param movieTeamMembers - список movieTeamMembers фильма
+     * @return возвращает сет уникальных ролей
      */
     private Set<String> getCastRoles (List<MovieTeamMember> movieTeamMembers){
         Set<String> castRoles = new HashSet<>();
