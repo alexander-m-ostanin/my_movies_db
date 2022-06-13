@@ -1,7 +1,7 @@
 package com.example.my_movies_db.model.dto;
 
+import com.example.my_movies_db.model.entities.CastRole;
 import com.example.my_movies_db.model.entities.Movie;
-import com.example.my_movies_db.model.entities.MovieTeamMember;
 import com.example.my_movies_db.model.entities.Person;
 import org.springframework.stereotype.Component;
 
@@ -16,61 +16,30 @@ import java.util.*;
 public class PosterDTOBuilder {
 
     /**
-     * Метод из полученного на входе листа:
-     * @param allMovieTeamMembers - список всех movieTeamMembers находящихся в БД
-     * получает сэт фильмов,
-     * а потом для каждого фильма собирает постер
-     * @return возвращает лист постеров
+     * Собрать PosterDTO из фильма
+     * @param movie поставляет на вход фильм
+     * Далее из фильма извлекаются все его castRoles и people
+     * Далее для каждой castRole вычисляется индивидуальный набор peoplePerCastRole
+     * Далее все это кладется в мапу, которая сетится в PosterDTO
+     * @return возвращает собранный PosterDTO
      */
-    public List<PosterDTO> buildPosterDTOList(List<MovieTeamMember> allMovieTeamMembers){
-        Set<Movie> movies = new HashSet<>();
-        allMovieTeamMembers.forEach(movieTeamMember -> movies.add(movieTeamMember.getMovie()));
-
-        List<PosterDTO> posterDTOList = new ArrayList<>();
-        for (Movie movie : movies){
-            List<MovieTeamMember> movieTeamMembers = new ArrayList<>();
-            for (MovieTeamMember movieTeamMember : allMovieTeamMembers){
-                if (movieTeamMember.getMovie().equals(movie)){
-                    movieTeamMembers.add(movieTeamMember);
-                }
-            }
-            posterDTOList.add(buildPosterDTO(movieTeamMembers));
-        }
-        return posterDTOList;
-    }
-
-    /**
-     * Метод из полученного листа:
-     * @param movieTeamMembers - список movieTeamMembers конкретного фильма
-     * собирает постер
-     * @return возврщает один постер
-     */
-    public PosterDTO buildPosterDTO(List<MovieTeamMember> movieTeamMembers){
+    public PosterDTO buildPosterDTO(Movie movie){
         PosterDTO posterDTO = new PosterDTO();
-        posterDTO.setMovie(movieTeamMembers.get(0).getMovie());
-        Map<String, List<Person>> movieTeam = new HashMap<>();
-        Set<String> castRoles = getCastRoles(movieTeamMembers);
-        for (String castRole : castRoles){
-            List<Person> roleTeam = new ArrayList<>();
-            for (MovieTeamMember movieTeamMember : movieTeamMembers) {
-                if (movieTeamMember.getCastRole().getName().equals(castRole)) {
-                    roleTeam.add(movieTeamMember.getPerson());
+        posterDTO.setMovie(movie);
+        Set<CastRole> castRoles = movie.getCastRoles();
+        Set<Person> people = movie.getPeople();
+        Map<CastRole, Set<Person>> movieTeam = new HashMap<>();
+        castRoles.forEach(castRole -> {
+            Set<Person> peoplePerCastRole = new HashSet<>();
+            people.forEach(person -> {
+                if (person.getCastRoles().contains(castRole)){
+                    peoplePerCastRole.add(person);
                 }
-            }
-            movieTeam.put(castRole, roleTeam);
-        }
+            });
+            movieTeam.put(castRole, peoplePerCastRole);
+        });
         posterDTO.setMovieTeam(movieTeam);
         return posterDTO;
     }
 
-    /**
-     * Метод из полученного листа
-     * @param movieTeamMembers - список movieTeamMembers фильма
-     * @return возвращает сет уникальных ролей
-     */
-    private Set<String> getCastRoles (List<MovieTeamMember> movieTeamMembers){
-        Set<String> castRoles = new HashSet<>();
-        movieTeamMembers.forEach(movieTeamMember -> castRoles.add(movieTeamMember.getCastRole().getName()));
-        return castRoles;
-    }
 }
