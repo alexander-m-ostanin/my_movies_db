@@ -47,11 +47,11 @@ http://localhost:8080/api/movies/1
 
 **1.2. Получить краткую информацию о персоне (имя) по id**
 
-GET запрос по адресу: /api/persons/{personId}
+GET запрос по адресу: /api/people/{personId}
 
 Пример посылаемого GET запроса:
 
-http://localhost:8080/api/persons/1
+http://localhost:8080/api/people/1
 
 Пример возвращаемого JSON:
 
@@ -151,13 +151,13 @@ BODY:
 
 **2.3. Создать новую персону**
 
-POST запрос по адресу /api/persons/
+POST запрос по адресу /api/people/
 
 Пример посылаемого POST запроса:
 
 URL:
 
-http://localhost:8080/api/persons/
+http://localhost:8080/api/people/
 
 BODY:
 
@@ -167,13 +167,13 @@ BODY:
 
 **2.4. Отредактировать существующую персону**
 
-POST запрос по адресу /api/persons/
+POST запрос по адресу /api/people/
 
 Пример посылаемого POST запроса:
 
 URL:
 
-http://localhost:8080/api/persons/
+http://localhost:8080/api/people/
 
 BODY:
 
@@ -235,11 +235,11 @@ Movie with id = 1 was deleted
 
 **3.2. Удалить персону по id**
 
-DELETE запрос по адресу: /api/persons/{personId}
+DELETE запрос по адресу: /api/people/{personId}
 
 Пример посылаемого DELETE запроса:
 
-http://localhost:8080/api/persons/1
+http://localhost:8080/api/people/1
 
 Пример возвращаемого подтверждения удаления:
 
