@@ -6,8 +6,8 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "movies_cross_people")
-public class MoviePersonCastRole {
+@Table(name = "movies_people_roles")
+public class MoviePersonRole {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -19,6 +19,6 @@ public class MoviePersonCastRole {
     @Column(name = "person_id")
     private int personId;
 
-    @Column(name = "cast_role_id")
-    private int castRoleId;
+    @Column(name = "role_id")
+    private int roleId;
 }

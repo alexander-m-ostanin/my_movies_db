@@ -1,6 +1,6 @@
 package com.example.my_movies_db.model.dto;
 
-import com.example.my_movies_db.model.entities.CastRole;
+import com.example.my_movies_db.model.entities.Role;
 import com.example.my_movies_db.model.entities.Movie;
 import com.example.my_movies_db.model.entities.Person;
 import lombok.Data;
@@ -14,5 +14,5 @@ import java.util.Set;
 @Data
 public class PosterDTO {
     private Movie movie;
-    private Map<CastRole, Set<Person>> movieTeam;
+    private Map<Role, Set<Person>> movieTeam;
 }

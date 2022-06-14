@@ -25,18 +25,18 @@ public class Person {
     @JsonIgnore
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
-            name = "movies_cross_people",
+            name = "movies_people_roles",
             joinColumns = @JoinColumn(name = "person_id"),
-            inverseJoinColumns = @JoinColumn(name = "cast_role_id")
+            inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private Set<CastRole> castRoles = new HashSet<>();
+    private Set<Role> roles = new HashSet<>();
 
-    public void addCastRole(CastRole castRole){
-        castRoles.add(castRole);
+    public void addRole(Role role){
+        roles.add(role);
     }
 
-    public void removeCastRole(CastRole castRole){
-        castRoles.remove(castRole);
+    public void removeRole(Role role){
+        roles.remove(role);
     }
 
 }

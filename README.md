@@ -184,13 +184,13 @@ BODY:
 
 **2.5. Добавить связь фильма с персоной**
 
-POST запрос по адресу /api/movies_cross_people/
+POST запрос по адресу /api/movies-people-roles/
 
 Пример посылаемого POST запроса:
 
 URL:
 
-http://localhost:8080/api/movies_cross_people/
+http://localhost:8080/api/movies-people-roles/
 
 BODY:
 
@@ -202,13 +202,13 @@ BODY:
 
 **2.6. Отредактировать связь фильма с персоной**
 
-POST запрос по адресу /api/movies_cross_people/
+POST запрос по адресу /api/movies-people-roles/
 
 Пример посылаемого POST запроса:
 
 URL:
 
-http://localhost:8080/api/movies_cross_people/
+http://localhost:8080/api/movies-people-roles/
 
 BODY:
 
@@ -247,11 +247,11 @@ Person with id = 1 was deleted
 
 **3.3. Удалить связь фильма с персоной**
 
-DELETE запрос по адресу: /api/movies_cross_people/{moviePersonCastRoleId}
+DELETE запрос по адресу: /api/movies-people-roles/{moviePersonRoleId}
 
 Пример посылаемого DELETE запроса:
 
-http://localhost:8080/api/movies_cross_people/1
+http://localhost:8080/api/movies-people-roles/1
 
 Пример возвращаемого подтверждения удаления:
 
