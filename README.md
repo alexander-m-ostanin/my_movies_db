@@ -1,4 +1,3 @@
-Тестовое задание на соискание должности Java разработчика
 
 **ЗАДАЧА**
 
@@ -21,9 +20,10 @@
 
 https://github.com/alexander-m-ostanin/my_movies_db
 
-SQL-скрипты расположены в:
+Создание базы данных и наполнение ее тестовыми данными реализовано миграциями с использованием Liquibase.
+Changelog расположен в:
 
-src/main/resources/database/initDB.sql
+src/main/resources/db/changelog
 
 **ДОКУМЕНТАЦИЯ К API**
 
